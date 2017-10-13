@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Austin Strozier.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -52,6 +52,40 @@ def draw_upside_down_wall(rectangle, n, window):
     # TODO: 2. Implement and test this function.
     #     Some tests are already written for you (above).
     # ------------------------------------------------------------------
+    # rectangle.attach_to(window)
+    # window.render()
+    corner_1 = rectangle.corner_1
+    corner_2 = rectangle.corner_2
+    distance_x = (abs(corner_2.x)-abs(corner_1.x))/2
+    distance_y = abs(corner_1.y)-abs(corner_2.y)
+    original_x1 = corner_1.x
+    orignal_x2 = corner_2.x
+
+    for k in range(n):
+        for j in range(k+1):
+            corner_1.x = corner_1.x - k*distance_x
+            corner_2.x = corner_2.x - k*distance_x
+            new_rect = rg.Rectangle(corner_1,corner_2)
+            new_rect.attach_to(window)
+            window.render()
+            for i in range(j - 1):
+                corner_1.x = corner_1.x + 2*distance_x
+                corner_2.x = corner_2.x + 2 * distance_x
+                new_rect2 = rg.Rectangle(corner_1,corner_2)
+                new_rect2.attach_to(window)
+                window.render()
+            corner_2.x = orignal_x2
+            corner_1.x = original_x1
+            corner_1.x = corner_1.x + k * distance_x
+            corner_2.x = corner_2.x + k * distance_x
+            new_rect1 = rg.Rectangle(corner_1,corner_2)
+            new_rect1.attach_to(window)
+            window.render()
+            corner_2.x = orignal_x2
+            corner_1.x = original_x1
+        corner_2.y = corner_2.y + distance_y
+        corner_1.y = corner_1.y + distance_y
+
 
 
 # ----------------------------------------------------------------------
